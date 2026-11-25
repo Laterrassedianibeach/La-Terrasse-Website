@@ -1,0 +1,26 @@
+name: Import La Terrasse source
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract and commit site files
+        run: |
+          unzip -q La-Terrasse-Website-source.zip
+          test -f .openai/hosting.json
+          test -f app/page.tsx
+          test -f package.json
+          rm La-Terrasse-Website-source.zip
+          rm .github/workflows/import-source.yml
+          git config user.name 'La Terrasse Website Import'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Import La Terrasse Diani Beach site source'
+          git push origin HEAD:main

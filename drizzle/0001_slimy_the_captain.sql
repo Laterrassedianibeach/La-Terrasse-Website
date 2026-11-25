@@ -1,0 +1,1 @@
+CREATE INDEX `idx_journal_articles_status_published_at` ON `journal_articles` (`status`,`published_at`);
